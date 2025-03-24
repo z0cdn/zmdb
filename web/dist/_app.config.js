@@ -1,0 +1,1 @@
+window.__PRODUCTION__N__ADMIN__CONF__={"VITE_GLOB_APP_TITLE":"N-admin"};Object.freeze(window.__PRODUCTION__N__ADMIN__CONF__);Object.defineProperty(window, "__PRODUCTION__N__ADMIN__CONF__", {configurable: false,writable: false,});
