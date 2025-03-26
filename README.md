@@ -5,6 +5,13 @@ N-Admin 是一个基于 [go-nunu](https://github.com/go-nunu/nunu) 开发的开�
 <p align="center"><img src="https://github.com/go-nunu/nunu-layout-admin/blob/main/web/src/assets/images/preview-home.png?raw=true"></p>
 <p align="center"><img src="https://github.com/go-nunu/nunu-layout-admin/blob/main/web/src/assets/images/preview-api.png?raw=true"></p>
 
+## 要求
+要运行项目，您需要在系统上安装以下软件：
+
+* Git
+* Golang 1.23 或 更高版本
+* NodeJS 18 或 更高版本
+
 ## 快速开始
 
 ```
