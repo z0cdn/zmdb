@@ -1,13 +1,12 @@
 <script setup>
-import {Modal} from 'ant-design-vue'
 import {ColumnHeightOutlined, PlusOutlined, ReloadOutlined, SettingOutlined} from '@ant-design/icons-vue'
 import {
   createRoleApi,
+  deleteRoleApi,
   getAdminApiApi,
   getRolePermissionsApi,
   getRolesApi,
   updateRoleApi,
-  deleteRoleApi,
   updateRolePermissionsApi
 } from '~@/api/common/admin'
 import {getAdminMenusApi} from "~/api/common/menu.js";
@@ -130,7 +129,7 @@ const checkedKeysMenu = ref([]);
 const menuData = shallowRef([])
 const open = ref(false)
 const openPermission = ref(false)
-const permissionRole = ref("")
+const permissionRole = ref({})
 const options = computed(() => {
   return columns.value.map((item) => {
     if (item.dataIndex === 'action') {
@@ -192,7 +191,7 @@ async function onReset() {
 function handleClose() {
   open.value = false
   openPermission.value = false
-  permissionRole.value = ""
+  permissionRole.value = {}
   onSearch()
 }
 
@@ -208,7 +207,7 @@ async function handleUpdate(record) {
 }
 
 async function handlePermission(record) {
-  permissionRole.value = record.sid
+  permissionRole.value = record
   resetForm()
   const {data} = await getAdminMenusApi({})
   menuData.value = formatToTree(data.list) ?? []
@@ -392,7 +391,7 @@ async function onSubmitPermission() {
   try {
 
     let res = await updateRolePermissionsApi({
-      role: permissionRole.value,
+      role: permissionRole.value.sid,
       list: [...checkedKeysApi.value, ...checkedKeysMenu.value]
     })
     if (res.code === 0) {
@@ -545,14 +544,14 @@ async function onSubmitPermission() {
       </template>
     </a-drawer>
     <a-drawer
-        :title="formModelPermission.id>0?'编辑':'添加' +'角色'"
+        title="分配角色权限"
         :width="600"
         :open="openPermission"
         :body-style="{ paddingBottom: '80px' }"
         :footer-style="{ textAlign: 'right' }"
         @close="handleClose"
     >
-      <span>超级管理员</span>
+      <span>角色：{{ permissionRole.name }}</span>
 
       <a-tabs v-model:activeKey="activeKey">
         <a-tab-pane key="1" tab="接口权限">

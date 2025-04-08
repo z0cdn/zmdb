@@ -1,0 +1,1 @@
+import{a8 as o,a9 as t,a5 as a}from"./vue-DApy1uhY.js";const _=Object.assign({name:"RouteView"},{__name:"route-view",setup(n){return(r,s)=>{const e=o("RouterView");return a(),t(e)}}});export{_ as default};
