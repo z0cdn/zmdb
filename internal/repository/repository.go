@@ -131,7 +131,11 @@ m = g(r.sub, p.sub) && r.obj == p.obj && r.act == p.act
 		panic(err)
 	}
 	e, _ := casbin.NewSyncedEnforcer(m, a)
-	e.StartAutoLoadPolicy(10 * time.Second) // 每10秒自动加载策略，防止启动多服务进程策略不一致
+
+	// 每10秒自动加载策略，防止启动多服务进程策略不一致
+	// 如果不想用轮询DB的方式，你也可以使用Casbin Watchers来同步策略，该方式需要基于Redis、Etcd等存储中间件
+	// Watchers相关文档：https://casbin.org/zh/docs/watchers
+	e.StartAutoLoadPolicy(10 * time.Second)
 
 	// Enable Logger, decide whether to show it in terminal
 	//e.EnableLog(true)
