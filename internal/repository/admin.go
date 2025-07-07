@@ -296,7 +296,7 @@ func (r *adminRepository) GetMenuList(ctx context.Context) ([]model.Menu, error)
 }
 
 func (r *adminRepository) RoleUpdate(ctx context.Context, m *model.Role) error {
-	return r.DB(ctx).Where("id = ?", m.ID).UpdateColumn("name", m.Name).Error
+	return r.DB(ctx).Model(&model.Role{}).Where("id = ?", m.ID).UpdateColumn("name", m.Name).Error
 }
 
 func (r *adminRepository) RoleCreate(ctx context.Context, m *model.Role) error {
