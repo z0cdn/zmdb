@@ -3,11 +3,12 @@ package repository
 import (
 	"context"
 	"fmt"
-	"github.com/duke-git/lancet/v2/convertor"
-	"go.uber.org/zap"
 	v1 "nunu-layout-admin/api/v1"
 	"nunu-layout-admin/internal/model"
 	"strings"
+
+	"github.com/duke-git/lancet/v2/convertor"
+	"go.uber.org/zap"
 )
 
 type AdminRepository interface {
@@ -155,7 +156,7 @@ func (r *adminRepository) GetAdminUser(ctx context.Context, uid uint) (model.Adm
 }
 
 func (r *adminRepository) AdminUserUpdate(ctx context.Context, m *model.AdminUser) error {
-	return r.DB(ctx).Where("id = ?", m.ID).Save(m).Error
+	return r.DB(ctx).Where("id = ?", m.ID).Updates(m).Error
 }
 
 func (r *adminRepository) AdminUserCreate(ctx context.Context, m *model.AdminUser) error {
@@ -254,7 +255,7 @@ func (r *adminRepository) GetApis(ctx context.Context, req *v1.GetApisRequest) (
 }
 
 func (r *adminRepository) ApiUpdate(ctx context.Context, m *model.Api) error {
-	return r.DB(ctx).Where("id = ?", m.ID).Save(m).Error
+	return r.DB(ctx).Where("id = ?", m.ID).Updates(m).Error
 }
 
 func (r *adminRepository) ApiCreate(ctx context.Context, m *model.Api) error {
@@ -276,11 +277,11 @@ func (r *adminRepository) GetUserRoles(ctx context.Context, uid uint) ([]string,
 	return r.e.GetRolesForUser(convertor.ToString(uid))
 }
 func (r *adminRepository) MenuUpdate(ctx context.Context, m *model.Menu) error {
-	return r.DB(ctx).Where("id = ?", m.ID).Save(m).Error
+	return r.DB(ctx).Where("id = ?", m.ID).Updates(m).Error
 }
 
 func (r *adminRepository) MenuCreate(ctx context.Context, m *model.Menu) error {
-	return r.DB(ctx).Save(m).Error
+	return r.DB(ctx).Create(m).Error
 }
 
 func (r *adminRepository) MenuDelete(ctx context.Context, id uint) error {
