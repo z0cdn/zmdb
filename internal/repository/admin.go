@@ -223,7 +223,7 @@ func (r *adminRepository) UpdateRolePermission(ctx context.Context, role string,
 
 func (r *adminRepository) GetApiGroups(ctx context.Context) ([]string, error) {
 	res := make([]string, 0)
-	if err := r.DB(ctx).Model(&model.Api{}).Group("`group`").Pluck("`group`", &res).Error; err != nil {
+	if err := r.DB(ctx).Model(&model.Api{}).Group("\"group\"").Pluck("\"group\"", &res).Error; err != nil {
 		return nil, err
 	}
 	return res, nil
@@ -237,7 +237,7 @@ func (r *adminRepository) GetApis(ctx context.Context, req *v1.GetApisRequest) (
 		scope = scope.Where("name LIKE ?", "%"+req.Name+"%")
 	}
 	if req.Group != "" {
-		scope = scope.Where("`group` LIKE ?", "%"+req.Group+"%")
+		scope = scope.Where("\"group\" LIKE ?", "%"+req.Group+"%")
 	}
 	if req.Path != "" {
 		scope = scope.Where("path LIKE ?", "%"+req.Path+"%")
@@ -248,7 +248,7 @@ func (r *adminRepository) GetApis(ctx context.Context, req *v1.GetApisRequest) (
 	if err := scope.Count(&total).Error; err != nil {
 		return nil, total, err
 	}
-	if err := scope.Offset((req.Page - 1) * req.PageSize).Limit(req.PageSize).Order("`group` ASC").Find(&list).Error; err != nil {
+	if err := scope.Offset((req.Page - 1) * req.PageSize).Limit(req.PageSize).Order("\"group\" ASC").Find(&list).Error; err != nil {
 		return nil, total, err
 	}
 	return list, total, nil
